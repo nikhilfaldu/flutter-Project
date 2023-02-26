@@ -1,16 +1,17 @@
+import 'package:first/src/data.dart';
 import 'package:flutter/material.dart';
-import 'package:first/src/home_page.dart';
-import 'package:first/src/shopping_cart_page.dart';
-import 'package:first/src/light_color.dart';
-import 'package:first/src/theme.dart';
-import 'package:first/src/bottom_navigation_bar.dart';
-import 'package:first/src/title_text.dart';
-import 'package:first/src/extentions.dart';
+import 'package:first/src/pages/home_page.dart';
+import 'package:first/src/pages/shopping_cart_page.dart';
+import 'package:first/src/themes/light_color.dart';
+import 'package:first/src/themes/theme.dart';
+import 'package:first/src/widgets/BottomNavigationBar/bottom_navigation_bar.dart';
+import 'package:first/src/widgets/title_text.dart';
+import 'package:first/src/widgets/extentions.dart';
 
 class MainPage extends StatefulWidget {
-  final String title;
+  MainPage({Key? key, required this.title}) : super(key: key);
 
-  const MainPage(this.title, {super.key});
+  final String title;
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -18,8 +19,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   bool isHomePageSelected = true;
-
-  get key => null;
   Widget _appBar() {
     return Container(
       padding: AppTheme.padding,
@@ -87,14 +86,16 @@ class _MainPageState extends State<MainPage> {
             ),
             Spacer(),
             !isHomePageSelected
-                ? Container(
-                    padding: EdgeInsets.all(10),
-                    child: Icon(
-                      Icons.delete_outline,
-                      color: LightColor.orange,
+                ? InkWell(
+                    onTap: () => setState(() => AppData.cartList.clear()),
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      child: Icon(
+                        Icons.delete_outline,
+                        color: LightColor.red,
+                      ),
                     ),
-                  ).ripple(() {},
-                    borderRadius: BorderRadius.all(Radius.circular(13)))
+                  )
                 : SizedBox()
           ],
         ));
@@ -112,6 +113,7 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
+  bool isValueChanged = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,14 +146,11 @@ class _MainPageState extends State<MainPage> {
                         switchOutCurve: Curves.easeOutBack,
                         child: isHomePageSelected
                             ? MyHomePage(
-                                key: key,
                                 title: '',
                               )
                             : Align(
                                 alignment: Alignment.topCenter,
-                                child: ShoppingCartPage(
-                                  key: key,
-                                ),
+                                child: ShoppingCartPage(),
                               ),
                       ),
                     )
@@ -164,7 +163,6 @@ class _MainPageState extends State<MainPage> {
               right: 0,
               child: CustomBottomNavigationBar(
                 onIconPresedCallback: onBottomIconPressed,
-                key: key,
               ),
             )
           ],

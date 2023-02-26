@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:first/src/category.dart';
 import 'package:first/src/product.dart';
 
@@ -61,7 +59,6 @@ class AppData {
     //     category: "Trending Now"),
   ];
   static List<Category> categoryList = [
-
     Category(
         id: 1,
         name: "Sneakers",

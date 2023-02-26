@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:first/src/data.dart';
-import 'package:first/src/light_color.dart';
-import 'package:first/src/theme.dart';
-import 'package:first/src/title_text.dart';
-import 'package:first/src/extentions.dart';
+import 'package:first/src/model/data.dart';
+import 'package:first/src/themes/light_color.dart';
+import 'package:first/src/themes/theme.dart';
+import 'package:first/src/widgets/title_text.dart';
+import 'package:first/src/widgets/extentions.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key});
@@ -69,7 +69,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     double size = 20,
     double padding = 10,
     bool isOutLine = false,
-    Function? onPressed,
+    required Function onPressed,
   }) {
     return Container(
       height: 40,
@@ -117,7 +117,10 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             fontSize: 160,
             color: LightColor.lightGrey,
           ),
-          Image.asset('assets/show_1.png')
+          Image.network(
+            prdSelected.image,
+            height: 140,
+          ),
         ],
       ),
     );
@@ -200,7 +203,15 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      TitleText(text: "NIKE AIR MAX 200", fontSize: 25),
+                      SizedBox(
+                        width: 200,
+                        child: Text(
+                          prdSelected.name,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 25),
+                          overflow: TextOverflow.clip,
+                        ),
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
@@ -213,7 +224,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                 color: LightColor.red,
                               ),
                               TitleText(
-                                text: "240",
+                                text: prdSelected.price.toString(),
                                 fontSize: 25,
                               ),
                             ],
@@ -355,14 +366,16 @@ class _ProductDetailPageState extends State<ProductDetailPage>
           fontSize: 14,
         ),
         SizedBox(height: 20),
-        Text(AppData.description),
+        Text(prdSelected.description),
       ],
     );
   }
 
   FloatingActionButton _flotingButton() {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: () {
+        AppData.cartList.add(prdSelected);
+      },
       backgroundColor: LightColor.orange,
       child: Icon(Icons.shopping_basket,
           color: Theme.of(context).floatingActionButtonTheme.backgroundColor),

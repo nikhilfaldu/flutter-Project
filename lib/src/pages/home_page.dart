@@ -1,14 +1,15 @@
+import 'package:first/src/model/product.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:first/src/data.dart';
-import 'package:first/src/light_color.dart';
-import 'package:first/src/theme.dart';
-import 'package:first/src/product_card.dart';
-import 'package:first/src/product_icon.dart';
-import 'package:first/src/extentions.dart';
+import 'package:first/src/model/data.dart';
+import 'package:first/src/themes/light_color.dart';
+import 'package:first/src/themes/theme.dart';
+import 'package:first/src/widgets/product_card.dart';
+import 'package:first/src/widgets/product_icon.dart';
+import 'package:first/src/widgets/extentions.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({required Key key, required this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -17,14 +18,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  get keys => null;
-
   Widget _icon(IconData icon, {Color color = LightColor.iconColor}) {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(13)),
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).backgroundColor,
           boxShadow: AppTheme.shadow),
       child: Icon(
         icon,
@@ -52,7 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     model.isSelected = true;
                   });
                 },
-                key: keys,
               ),
             )
             .toList(),
@@ -78,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
               (product) => ProductCard(
                 product: product,
                 onSelected: (model) {
+                  prdSelected = product;
                   setState(() {
                     AppData.productList.forEach((item) {
                       item.isSelected = false;
@@ -85,7 +84,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     model.isSelected = true;
                   });
                 },
-                key: keys,
               ),
             )
             .toList(),

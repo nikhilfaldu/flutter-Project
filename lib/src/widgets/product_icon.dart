@@ -1,16 +1,16 @@
-import 'package:first/src/extentions.dart';
 import 'package:flutter/material.dart';
-import 'package:first/src/category.dart';
-import 'package:first/src/light_color.dart';
-import 'package:first/src/theme.dart';
-import 'package:first/src/title_text.dart';
+import 'package:first/src/model/category.dart';
+import 'package:first/src/themes/light_color.dart';
+import 'package:first/src/themes/theme.dart';
+import 'package:first/src/widgets/title_text.dart';
+import 'package:first/src/widgets/extentions.dart';
 
 class ProductIcon extends StatelessWidget {
   // final String imagePath;
   // final String text;
   final ValueChanged<Category> onSelected;
   final Category model;
-  ProductIcon({required Key key, required this.model, required this.onSelected})
+  ProductIcon({Key? key, required this.model, required this.onSelected})
       : super(key: key);
 
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class ProductIcon extends StatelessWidget {
               ),
               child: Row(
                 children: <Widget>[
-                  model.image != null ? Image.network(model.image) : SizedBox(),
+                  model.image != null ? Image.asset(model.image) : SizedBox(),
                   model.name == null
                       ? Container()
                       : Container(

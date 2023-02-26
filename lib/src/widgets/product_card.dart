@@ -1,15 +1,14 @@
-import 'package:first/src/extentions.dart';
 import 'package:flutter/material.dart';
 
-import 'package:first/src/product.dart';
-import 'package:first/src/light_color.dart';
-import 'package:first/src/title_text.dart';
+import 'package:first/src/model/product.dart';
+import 'package:first/src/themes/light_color.dart';
+import 'package:first/src/widgets/title_text.dart';
+import 'package:first/src/widgets/extentions.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
   final ValueChanged<Product> onSelected;
-  ProductCard(
-      {required Key key, required this.product, required this.onSelected})
+  ProductCard({Key? key, required this.product, required this.onSelected})
       : super(key: key);
 
 //   @override
